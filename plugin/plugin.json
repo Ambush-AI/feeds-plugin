@@ -1,0 +1,96 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "ambush-streams",
+  "version": "0.3.0",
+  "description": "Create, review, and deliver personalized Ambush news streams from ChatGPT and Codex.",
+  "author": {
+    "name": "Ambush AI",
+    "email": "support@ambush.ai",
+    "url": "https://ambush.ai"
+  },
+  "homepage": "https://ambush.ai",
+  "repository": "https://github.com/Ambush-AI/feeds-plugin",
+  "keywords": ["ambush", "streams", "news", "monitoring", "alerts", "delivery"],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Ambush Streams",
+        "shortDescription": "Real-time news alerts",
+        "longDescription": "Ambush Streams turns a plain-language monitoring request into a personalized news stream that watches the news for you. Create focused streams, review what they caught and the near misses they passed on, refine what they monitor, transform every accepted event into a tailored output, route future alerts to a Slack, webhook, iMessage, or Telegram destination already connected in Ambush, and pause, resume, or delete streams without leaving the conversation. Your streams and destinations stay scoped to your signed-in Ambush account; destination credentials are managed in Ambush and never requested in chat.",
+        "developerName": "Ambush AI",
+        "category": "Productivity",
+        "capabilities": [
+          "Create and edit news streams",
+          "Review alerts and near misses",
+          "Route alerts to connected channels"
+        ],
+        "websiteURL": "https://ambush.ai",
+        "supportURL": "https://reflex.app/support",
+        "privacyPolicyURL": "https://reflex.app/privacy",
+        "defaultPrompt": [
+          "Watch for Fed officials signalling a change in the path of rate cuts.",
+          "What did my Ambush streams catch today?",
+          "Send every alert from my AI regulation stream to my Slack channel."
+        ],
+        "brandColor": "#12BFAE",
+        "composerIcon": "./assets/ambush-icon.svg",
+        "logo": "./assets/ambush-icon.svg"
+      },
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "List streams and identify which are paused, without changing any of them.",
+              "prompt": "List my Ambush streams and tell me which ones are paused.",
+              "tools_triggered": "list_feeds",
+              "expected_behavior": "Lists the seeded streams by name with their statuses, identifying AI regulation and AI Chip Supply as paused and General Market Monitor and Review Disposable as active. No stream is changed."
+            },
+            {
+              "description": "Create one focused stream from a plain-language request.",
+              "prompt": "Create an Ambush stream named Advanced Packaging Watch that monitors material disruptions to advanced AI chip packaging capacity.",
+              "tools_triggered": "create_feed",
+              "expected_behavior": "Calls create_feed exactly once with the name Advanced Packaging Watch and a monitoring prompt faithful to the request, then reports the new stream's ID and status."
+            },
+            {
+              "description": "Resume a paused stream and refine what it monitors in one update.",
+              "prompt": "Resume my paused AI regulation stream and change it to focus on enacted rules and enforcement actions.",
+              "tools_triggered": "list_feeds, update_feed",
+              "expected_behavior": "Finds the AI regulation stream, then calls update_feed once with its ID, status active, and a revised prompt about enacted AI rules and enforcement actions. Reports the stream as active."
+            },
+            {
+              "description": "Review a stream's most recent alerts in order.",
+              "prompt": "Show me the five latest items emitted by my AI Chip Supply stream.",
+              "tools_triggered": "list_feeds, list_emissions",
+              "expected_behavior": "Finds AI Chip Supply and lists its five seeded alerts newest first, from 'advanced packaging plant interruption' to 'substrate supplier capacity reduction', without inventing items."
+            },
+            {
+              "description": "Process every future event and deliver it to a connected channel, without polling or asking for credentials.",
+              "prompt": "For every new event from my AI Chip Supply stream, produce a cautious trade idea or explicitly say no trade, and send it to my Trade Ideas Slack channel every time the stream fires.",
+              "tools_triggered": "list_feeds, get_feed, update_feed, list_channels, route_feed_channel",
+              "expected_behavior": "Adds post-processing to AI Chip Supply that allows an explicit no-trade result without changing what the stream monitors, then routes the stream to the connected Trade Ideas Slack channel. Explains this applies to future alerts, sets up no polling, and asks for no Slack credentials."
+            }
+          ],
+          "negative": [
+            {
+              "description": "A general news question is not stream management, so Ambush is not used.",
+              "prompt": "What are the biggest technology stories today?"
+            },
+            {
+              "description": "A coding request is not stream management, so Ambush is not used.",
+              "prompt": "Write a TypeScript RSS parser for my project."
+            },
+            {
+              "description": "An ambiguous cleanup request must not delete anything; the assistant asks which exact streams to permanently delete.",
+              "prompt": "Clean up my old streams."
+            }
+          ]
+        },
+        "commerce": false,
+        "commerce_description": "Ambush Streams does not sell products or process payments in ChatGPT or Codex."
+      },
+      "publication": {
+        "release_notes": "Adds ChatGPT support in the portable plugin format. Workflow guidance now ships with the Ambush MCP server, so it updates without a new plugin version. Adds near-miss review for streams."
+      }
+    }
+  }
+}

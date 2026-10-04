@@ -1,0 +1,20 @@
+{
+  "name": "ambush-ai",
+  "interface": {
+    "displayName": "Ambush AI"
+  },
+  "plugins": [
+    {
+      "name": "ambush-streams",
+      "source": {
+        "source": "local",
+        "path": "./plugin"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}
