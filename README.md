@@ -1,7 +1,9 @@
 # Ambush Streams plugin
 
-Source for the **Ambush Streams** plugin in the plugin directory that ChatGPT and
-Codex share. The plugin is just our remote MCP server plus listing metadata:
+Source for the **Ambush Streams** plugin in the plugin directory that ChatGPT,
+Codex, and dots share. A dot can use any plugin installed and enabled for the
+account, so a directory listing is all dots need. The plugin is just our remote
+MCP server plus listing metadata:
 
 ```text
 plugin/
@@ -18,12 +20,21 @@ deploy instead of a new plugin version.
 
 ## What needs a new version
 
+After publication OpenAI continuously reviews the live server: it fetches it
+periodically and on Rescan, and ships changes that pass automated checks. See
+[Remote MCP server review requirements](https://developers.openai.com/plugins/deploy/app-review#ongoing-maintenance).
+
 | Change | Where | How it ships |
 | --- | --- | --- |
-| Tool names, descriptions, schemas, annotations | Monorepo `ambush-feeds/api/src/mcp` | API deploy. OpenAI rescans the server daily (or click Rescan); eligible changes go live after automated checks, new tools wait for approval. |
-| Server `instructions` | Monorepo `ambush-feeds/api/src/mcp/instructions.ts` | API deploy, then Rescan. Verify the updated text shows in the portal's server details. |
-| Listing copy, icons, prompts, review cases, release notes | `plugin/plugin.json`, `plugin/assets/` | Bump `version`, build the ZIP, upload it. |
-| MCP server URL | `plugin/mcp.json` | Contact OpenAI; a URL change is not self-serve. |
+| Changed tool descriptions, schemas, annotations, `_meta` | Monorepo `ambush-feeds/api/src/mcp` | API deploy. Each tool goes live once it passes automated checks; until then the previous definition stays live, so keep the server compatible with it. |
+| New tools | Same | API deploy. Unavailable to users until they pass checks. |
+| Removed tools | Same | API deploy. Removed as soon as a scan sees it. |
+| Server `instructions` | Monorepo `ambush-feeds/api/src/mcp/instructions.ts` | API deploy. Reviewed together with the affected tools; live once the checks pass without holding tool updates or flagging the instructions. |
+| Listing copy, icons, prompts, review cases, release notes | `plugin/plugin.json`, `plugin/assets/` | Bump `version`, build the ZIP, upload it. Each upload is a new version with its own review. |
+| MCP server origin (`https://api.ambush.ai`) | `plugin/mcp.json` | Not changeable: a new origin means a new plugin. Only the path can change in a new version. |
+
+Click **Rescan** in the portal after a deploy to check sooner instead of
+waiting for the periodic fetch.
 
 ## Build the ZIP
 
@@ -35,11 +46,12 @@ mkdir -p dist && (cd plugin && zip -r -X ../dist/ambush-streams-0.3.0.zip . -x '
 
 ## Test before uploading
 
-ChatGPT developer mode: Settings → Security and login → Developer mode, then
-Plugins → **+** → `https://api.ambush.ai/mcp`. Use it from a Work chat with
-`@Ambush Streams`.
+Run the test set in [docs/test-set.md](docs/test-set.md), following OpenAI's
+[Connect and test your plugin](https://developers.openai.com/plugins/deploy/connect-chatgpt):
+the server alone in developer mode first, then the installed package, then a
+dot.
 
-Codex or the ChatGPT desktop app, from this checkout:
+To install this checkout as a local plugin in Codex or the ChatGPT desktop app:
 
 ```sh
 codex plugin marketplace add /absolute/path/to/feeds-plugin

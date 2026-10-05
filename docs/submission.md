@@ -7,8 +7,12 @@ portal verification tokens, or recording access tokens.
 
 ## Blockers
 
-- [ ] Legal-approved Ambush terms of service at a public HTTPS URL, added as
-      `interface.termsOfServiceURL`. Required for MCP review.
+- [ ] Ambush pages live at the listing's URLs, each identifying Ambush as the
+      publisher (OpenAI checks this):
+      - [ ] `https://app.ambush.ai/support`
+      - [ ] `https://app.ambush.ai/privacy`, approved by legal, covering what
+            Ambush Streams actually collects
+      - [ ] `https://app.ambush.ai/terms`, approved by legal
 - [ ] Demo recording at a stable reviewer-accessible URL, added as
       `review.demo_recording_url`. Show OAuth sign-in, listing streams,
       creating one, routing every event to a connected channel, a status
@@ -16,6 +20,9 @@ portal verification tokens, or recording access tokens.
 - [ ] MCP server `instructions` deployed to production and visible in the
       portal after a rescan.
 - [ ] Reviewer account (below) seeded and preflighted.
+- [ ] [Test set](test-set.md) passing on all three surfaces, with the run
+      logged in `docs/test-runs/`. Section H must pass in a dot: the listing
+      says dots and ChatGPT Work can act whenever a stream catches something.
 - [ ] Domain verification: serve the portal's token as the only body of
       `https://api.ambush.ai/.well-known/openai-apps-challenge`, deploy, and
       verify HTTP 200 before completing it in the portal. Don't commit a
@@ -24,7 +31,7 @@ portal verification tokens, or recording access tokens.
 
 Already true: production MCP over HTTPS, OAuth with PKCE and dynamic client
 registration, public protected-resource metadata, read/write/destructive tool
-annotations, public privacy policy and support page.
+annotations.
 
 ## Reviewer account
 

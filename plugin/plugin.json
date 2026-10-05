@@ -16,7 +16,7 @@
       "interface": {
         "displayName": "Ambush Streams",
         "shortDescription": "Real-time news alerts",
-        "longDescription": "Ambush Streams turns a plain-language monitoring request into a personalized news stream that watches the news for you. Create focused streams, review what they caught and the near misses they passed on, refine what they monitor, transform every accepted event into a tailored output, route future alerts to a Slack, webhook, iMessage, or Telegram destination already connected in Ambush, and pause, resume, or delete streams without leaving the conversation. Your streams and destinations stay scoped to your signed-in Ambush account; destination credentials are managed in Ambush and never requested in chat.",
+        "longDescription": "Ambush Streams turns a plain-language monitoring request into a personalized news stream that watches the news for you. Create focused streams, review what they caught and the near misses they passed on, refine what they monitor, transform every accepted event into a tailored output, route future alerts to a Slack, webhook, iMessage, or Telegram destination already connected in Ambush, and pause, resume, or delete streams without leaving the conversation. In ChatGPT Work and with dots, you can also ask to be told, or to have work started, whenever a stream catches something. Your streams and destinations stay scoped to your signed-in Ambush account; destination credentials are managed in Ambush and never requested in chat.",
         "developerName": "Ambush AI",
         "category": "Productivity",
         "capabilities": [
@@ -24,9 +24,10 @@
           "Review alerts and near misses",
           "Route alerts to connected channels"
         ],
-        "websiteURL": "https://ambush.ai",
-        "supportURL": "https://reflex.app/support",
-        "privacyPolicyURL": "https://reflex.app/privacy",
+        "websiteURL": "https://app.ambush.ai",
+        "supportURL": "https://app.ambush.ai/support",
+        "privacyPolicyURL": "https://app.ambush.ai/privacy",
+        "termsOfServiceURL": "https://app.ambush.ai/terms",
         "defaultPrompt": [
           "Watch for Fed officials signalling a change in the path of rate cuts.",
           "What did my Ambush streams catch today?",
@@ -89,7 +90,7 @@
         "commerce_description": "Ambush Streams does not sell products or process payments in ChatGPT or Codex."
       },
       "publication": {
-        "release_notes": "Adds ChatGPT support in the portable plugin format. Workflow guidance now ships with the Ambush MCP server, so it updates without a new plugin version. Adds near-miss review for streams."
+        "release_notes": "Adds ChatGPT and dots support in the portable plugin format. Dots and ChatGPT Work can act whenever a stream catches something. Workflow guidance now ships with the Ambush MCP server, so it updates without a new plugin version. Adds near-miss review for streams."
       }
     }
   }
