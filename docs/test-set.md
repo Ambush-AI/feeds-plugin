@@ -69,7 +69,7 @@ description or one instructions rule) at a time and rerun.
 
 | ID | Prompt | Expected tools | Passes when |
 | --- | --- | --- | --- |
-| B1 | Keep an eye on the news for Fed officials hinting at rate cuts. | `create_feed` once | One focused stream that keeps the entity (Fed officials) and event (rate-cut signals); reports it. Doesn't do a one-off web search instead. |
+| B1 | Keep an eye on the news for Fed officials hinting at rate cuts. | `create_feed` once; in a Work chat or dot, also subscribes to `feed.emission.created` | One focused stream that keeps the entity (Fed officials) and event (rate-cut signals); reports it. Doesn't do a one-off web search instead. |
 | B2 | Anything new on AI chip supply? | `list_feeds`, then `list_emissions` or `get_feed` | Answers from the AI Chip Supply stream's alerts, saying where they came from. |
 | B3 | Stop watching AI regulation for now. | `list_feeds`, `update_feed` (`status: paused`) | Pauses that stream; doesn't delete it. |
 
@@ -126,14 +126,18 @@ Run each right after the case it follows, in the same conversation.
 ## H. Events (ChatGPT Work and dots)
 
 Our server advertises one event, `feed.emission.created`, filtered by
-`feed_id`. A subscription becomes a delivery route on that stream, so an event
-arrives only when the stream accepts a new alert. Use Fed Watch so one arrives
-within hours. Watch the API logs for `events/subscribe`, the callback check,
-deliveries, and `events/unsubscribe`.
+`feed_id`. Subscribing creates an MCP webhook destination in Ambush and routes
+the stream to it, so the stream's alerts reach the agent. The server
+instructions make that subscription part of creating a stream in any client
+that supports events. An event arrives only when the stream accepts a new
+alert, so use Fed Watch for one within hours. Watch the API logs for
+`events/subscribe`, the callback check, deliveries, and `events/unsubscribe`,
+and check in the Ambush app that the stream lists the new destination.
 
 | ID | Prompt | Passes when |
 | --- | --- | --- |
-| H1 | Whenever my Fed Watch stream catches something, write a two-line summary and message me in ChatGPT. | Subscribes to `feed.emission.created` with Fed Watch's `feed_id`; the callback check succeeds; the dot confirms what it's watching. |
+| H0 | Start watching the news for central bank rate decisions and tell me when something happens. | Calls `create_feed`, then subscribes to `feed.emission.created` with the new `feed_id` in the same turn, without being asked to subscribe. The new stream shows an MCP webhook destination in Ambush. A stream created without a subscription fails. |
+| H1 | Whenever my Fed Watch stream catches something, write a two-line summary and message me in ChatGPT. | Subscribes to `feed.emission.created` with Fed Watch's `feed_id` rather than routing to a Slack or other channel; the callback check succeeds; the dot confirms what it's watching. |
 | H2 | (Wait for Fed Watch's next alert.) | The webhook gets a 2xx; the dot posts a summary of that alert, with nothing invented. |
 | H3 | What are you watching for me in Ambush? | Lists the Fed Watch subscription accurately. |
 | H4 | (While subscribed to Fed Watch, wait for an alert on a different stream.) | Nothing is delivered for the other stream. |
@@ -141,10 +145,5 @@ deliveries, and `events/unsubscribe`.
 
 Also check: a subscription survives an API restart and is refreshed before it
 expires; disconnecting the plugin stops delivery; repeating H1 doesn't create
-a second subscription.
-
-**Open question for H1:** the instructions say to deliver alerts outside the
-chat with `route_feed_channel`, which could steer a dot toward routing to
-Slack instead of subscribing. If H1 routes instead of subscribing, add an
-instructions rule that names `feed.emission.created` for "tell me" and "do
-something when" requests.
+a second subscription. In a plain ChatGPT chat, which can't receive events,
+B1 should create the stream without trying to subscribe.
