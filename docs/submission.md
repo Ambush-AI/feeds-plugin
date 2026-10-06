@@ -53,7 +53,7 @@ case is safe to run again.
 | --- | --- |
 | `AI regulation` | Paused. Any prompt about AI rules; case 3 rewrites it. |
 | `AI Chip Supply` | Paused. Prompt about AI chip supply-chain disruptions. |
-| `Fed Watch` | Active. Prompt: any news about the Federal Reserve. Create it a few days before rehearsing so it has at least five real alerts for case 4. |
+| `NFL Player Injuries` | Active. Forked from the NFL injuries template in Explore, which copies its last 30 days of alerts, so case 4 has real alerts immediately. |
 
 No destinations: don't connect Slack, webhooks, or the mobile app.
 

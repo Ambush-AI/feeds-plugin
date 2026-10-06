@@ -44,7 +44,7 @@
               "description": "List streams and identify which are paused, without changing any of them.",
               "prompt": "List my Ambush streams and tell me which ones are paused.",
               "tools_triggered": "list_feeds",
-              "expected_behavior": "Lists every stream on the account by name with its status, matching the Streams page in Ambush: AI regulation and AI Chip Supply are paused and Fed Watch is active. No stream is changed."
+              "expected_behavior": "Lists every stream on the account by name with its status, matching the Streams page in Ambush: AI regulation and AI Chip Supply are paused and NFL Player Injuries is active. No stream is changed."
             },
             {
               "description": "Create one focused stream from a plain-language request.",
@@ -60,9 +60,9 @@
             },
             {
               "description": "Review a stream's most recent alerts in order, without inventing any.",
-              "prompt": "Show me the five latest alerts from my Fed Watch stream.",
+              "prompt": "Show me the five latest alerts from my NFL Player Injuries stream.",
               "tools_triggered": "list_feeds, list_emissions",
-              "expected_behavior": "Finds Fed Watch and lists its five most recent alerts, newest first, matching the alerts shown on that stream's page in Ambush. Nothing is invented or changed."
+              "expected_behavior": "Finds NFL Player Injuries and lists its five most recent alerts, newest first, matching the alerts shown on that stream's page in Ambush. Nothing is invented or changed."
             },
             {
               "description": "Transform every future event of a stream without changing what it monitors or setting up polling.",
