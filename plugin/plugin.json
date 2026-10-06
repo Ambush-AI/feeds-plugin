@@ -44,7 +44,7 @@
               "description": "List streams and identify which are paused, without changing any of them.",
               "prompt": "List my Ambush streams and tell me which ones are paused.",
               "tools_triggered": "list_feeds",
-              "expected_behavior": "Lists the seeded streams by name with their statuses, identifying AI regulation and AI Chip Supply as paused and General Market Monitor and Review Disposable as active. No stream is changed."
+              "expected_behavior": "Lists every stream on the account by name with its status, matching the Streams page in Ambush: AI regulation and AI Chip Supply are paused and Fed Watch is active. No stream is changed."
             },
             {
               "description": "Create one focused stream from a plain-language request.",
@@ -53,22 +53,22 @@
               "expected_behavior": "Calls create_feed exactly once with the name Advanced Packaging Watch and a monitoring prompt faithful to the request, then reports the new stream's ID and status."
             },
             {
-              "description": "Resume a paused stream and refine what it monitors in one update.",
-              "prompt": "Resume my paused AI regulation stream and change it to focus on enacted rules and enforcement actions.",
+              "description": "Pause a stream and refine what it monitors in one update.",
+              "prompt": "Pause my AI regulation stream and change it to focus on enacted rules and enforcement actions.",
               "tools_triggered": "list_feeds, update_feed",
-              "expected_behavior": "Finds the AI regulation stream, then calls update_feed once with its ID, status active, and a revised prompt about enacted AI rules and enforcement actions. Reports the stream as active."
+              "expected_behavior": "Finds the AI regulation stream, then calls update_feed once with its ID, status paused, and a revised prompt about enacted AI rules and enforcement actions. Reports the stream as paused. Running it again gives the same result."
             },
             {
-              "description": "Review a stream's most recent alerts in order.",
-              "prompt": "Show me the five latest items emitted by my AI Chip Supply stream.",
+              "description": "Review a stream's most recent alerts in order, without inventing any.",
+              "prompt": "Show me the five latest alerts from my Fed Watch stream.",
               "tools_triggered": "list_feeds, list_emissions",
-              "expected_behavior": "Finds AI Chip Supply and lists its five seeded alerts newest first, from 'advanced packaging plant interruption' to 'substrate supplier capacity reduction', without inventing items."
+              "expected_behavior": "Finds Fed Watch and lists its five most recent alerts, newest first, matching the alerts shown on that stream's page in Ambush. Nothing is invented or changed."
             },
             {
               "description": "Transform every future event of a stream without changing what it monitors or setting up polling.",
               "prompt": "For every new event from my AI Chip Supply stream, add a one-line note on why it matters for chip supply.",
               "tools_triggered": "list_feeds, get_feed, update_feed",
-              "expected_behavior": "Finds AI Chip Supply and calls update_feed once with post-processing that adds a one-line note on why each alert matters for chip supply, leaving the monitoring prompt unchanged. Explains this applies to future alerts and sets up no polling or scheduled task."
+              "expected_behavior": "Finds AI Chip Supply and calls update_feed once with post-processing that adds a one-line note on why each alert matters for chip supply, leaving the monitoring prompt unchanged. Explains this applies to future alerts and sets up no polling or scheduled task. Running it again replaces the note rather than adding a second one."
             }
           ],
           "negative": [

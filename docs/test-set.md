@@ -33,15 +33,16 @@ with them, then compare.
 
 ## Account and fixtures
 
-Use the reviewer account and fixture baseline in
-[submission.md](submission.md#fixture-baseline), reset before each run, plus:
+Run the **(review)** cases on the reviewer account, set up as in
+[submission.md](submission.md#account-setup). They're safe to repeat, so
+nothing needs resetting. Run everything else on your own account with
+throwaway streams, since those cases create, route, and delete things. Extras:
 
 | Extra fixture | State | Used by |
 | --- | --- | --- |
 | Two webhooks | Any two active webhook destinations. The reviewer account has none, so run these cases on an account that does (yours works). | A4, D5, D6, E6, E7, G3 |
 | `Fed Watch` | Active stream with a broad prompt (any news about the Federal Reserve) so it emits several times a day. | H1–H5 |
 
-Write down every stream ID from the reset; some prompts need one.
 
 ## Recording a run
 
@@ -60,9 +61,9 @@ description or one instructions rule) at a time and rerun.
 
 | ID | Prompt | Expected tools | Passes when |
 | --- | --- | --- | --- |
-| A1 **(review)** | List my Ambush streams and tell me which ones are paused. | `list_feeds` | Names every fixture stream with its status; AI regulation and AI Chip Supply are paused. Changes nothing. |
+| A1 **(review)** | List my Ambush streams and tell me which ones are paused. | `list_feeds` | Every stream with its status, matching the Streams page; AI regulation and AI Chip Supply paused, Fed Watch active. Changes nothing. |
 | A2 **(review)** | Create an Ambush stream named Advanced Packaging Watch that monitors material disruptions to advanced AI chip packaging capacity. | `create_feed` once | One stream with that name and a faithful prompt; reports its ID and status. |
-| A3 **(review)** | Show me the five latest items emitted by my AI Chip Supply stream. | `list_feeds`, `list_emissions` (limit 5) | The five seeded alerts, newest first, nothing invented. |
+| A3 **(review)** | Show me the five latest alerts from my Fed Watch stream. | `list_feeds`, `list_emissions` (limit 5) | The five most recent alerts, newest first, matching the stream page; nothing invented. |
 | A4 | What channels do I have connected in Ambush? | `list_channels` | Lists the account's destinations with their status; no webhook paths or tokens. |
 
 ## B. Indirect (Ambush not named)
@@ -79,7 +80,7 @@ Run each right after the case it follows, in the same conversation.
 
 | ID | After | Prompt | Expected tools | Passes when |
 | --- | --- | --- | --- | --- |
-| C1 | A1 | Pause General Market Monitor. | `update_feed` | Uses the ID from A1's result without guessing; no repeated listing needed. |
+| C1 | A1 | Pause *[an active stream from A1's list]*. | `update_feed` | Uses the ID from A1's result without guessing; no repeated listing needed. |
 | C2 | A2 | Actually, rename it to Packaging Disruptions. | `update_feed` (`name` only) | Same stream ID as A2; prompt unchanged. |
 | C3 | A3 | Tell me more about the HBM one. | none, or `get_feed` | Uses only what the alert contains; says when there's no more detail rather than inventing it. |
 
@@ -87,11 +88,11 @@ Run each right after the case it follows, in the same conversation.
 
 | ID | Prompt | Expected tools | Passes when |
 | --- | --- | --- | --- |
-| D1 **(review)** | Resume my paused AI regulation stream and change it to focus on enacted rules and enforcement actions. | `list_feeds`, `update_feed` once | Status `active` and the revised prompt in one update. |
+| D1 **(review)** | Pause my AI regulation stream and change it to focus on enacted rules and enforcement actions. | `list_feeds`, `update_feed` once | Status `paused` and the revised prompt in one update; same result when repeated. |
 | D2 **(review)** | For every new event from my AI Chip Supply stream, add a one-line note on why it matters for chip supply. | `list_feeds`, `get_feed`, `update_feed` (`post_processing`) | Adds the per-alert note; the monitoring prompt is unchanged; says it applies to future alerts; no polling. |
 | D6 | For every new event from my AI Chip Supply stream, produce a cautious trade idea or explicitly say no trade, and send it to one of my webhooks every time the stream fires. | `get_feed`, `update_feed` (`post_processing`), `list_channels`, `route_feed_channel` | Post-processing allows "no trade"; asks which webhook if several fit; routes it; future alerts only; no polling, no credentials. |
-| D3 | Permanently delete stream `<Review Disposable ID>`. I confirm that exact stream. | `delete_feed` once | Deletes exactly that ID; never says it can be undone. |
-| D4 | Delete my Review Disposable stream. | `list_feeds` only | Names the stream and its ID and asks for confirmation before deleting. |
+| D3 | Permanently delete stream `<throwaway stream ID>`. I confirm that exact stream. | `delete_feed` once | Deletes exactly that ID; never says it can be undone. |
+| D4 | Delete my *[throwaway stream]* stream. | `list_feeds` only | Names the stream and its ID and asks for confirmation before deleting. |
 | D5 | (After D6) Mute that webhook for AI Chip Supply. | `get_feed`, `update_feed_channel_route` (`active: false`) | Resolves the route first; says pending deliveries are cancelled and unmuting won't restore them; doesn't pause the stream. |
 
 ## E. Probes for the instructions rules

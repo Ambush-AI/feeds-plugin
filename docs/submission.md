@@ -19,7 +19,7 @@ portal verification tokens, or recording access tokens.
       update, reviewing alerts, and the confirmation before a delete.
 - [ ] MCP server `instructions` deployed to production and visible in the
       portal after a rescan.
-- [ ] Reviewer account (below) seeded and preflighted.
+- [ ] Reviewer account (below) set up and preflighted.
 - [ ] [Test set](test-set.md) passing on all three surfaces, with the run
       logged in `docs/test-runs/`. Section H must pass in a dot: the listing
       says dots and ChatGPT Work can act whenever a stream catches something.
@@ -43,29 +43,22 @@ annotations.
 - Credentials go only in the portal's Review details form, never in the ZIP.
 - Revoke or rotate after approval.
 
-### Fixture baseline
+### Account setup
 
-Reset to exactly this before every review run. The review cases in
-`plugin/plugin.json` depend on it.
+Set up once, by hand in the Ambush app, signed in as the reviewer. Nothing is
+written to the database directly, and nothing needs resetting: every review
+case is safe to run again.
 
-| Fixture | State |
+| Stream | State |
 | --- | --- |
-| `AI regulation` | Paused stream monitoring proposed AI rules broadly. |
-| `AI Chip Supply` | Paused stream with exactly the five alerts below. |
-| `Review Disposable` | Active stream. |
-| `General Market Monitor` | Active stream. |
+| `AI regulation` | Paused. Any prompt about AI rules; case 3 rewrites it. |
+| `AI Chip Supply` | Paused. Prompt about AI chip supply-chain disruptions. |
+| `Fed Watch` | Active. Prompt: any news about the Federal Reserve. Create it a few days before rehearsing so it has at least five real alerts for case 4. |
 
-`AI Chip Supply` alerts, newest first:
+No destinations: don't connect Slack, webhooks, or the mobile app.
 
-1. `2026-01-05T12:00:00Z` — Review fixture — advanced packaging plant interruption
-2. `2026-01-04T12:00:00Z` — Review fixture — HBM production allocation change
-3. `2026-01-03T12:00:00Z` — Review fixture — accelerator export restriction enacted
-4. `2026-01-02T12:00:00Z` — Review fixture — leading-edge foundry outage
-5. `2026-01-01T12:00:00Z` — Review fixture — substrate supplier capacity reduction
-
-Remove any stream created by an earlier run (positive case 2 creates
-`Advanced Packaging Watch`). If the reset fails, stop rather than adapting
-expectations to stale state.
+Case 2 adds an `Advanced Packaging Watch` stream each time it runs. That's
+harmless; delete the extras from the app when they pile up.
 
 ## Tool annotation justifications
 
