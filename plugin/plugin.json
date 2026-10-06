@@ -66,9 +66,9 @@
             },
             {
               "description": "Process every future event and deliver it to a connected channel, without polling or asking for credentials.",
-              "prompt": "For every new event from my AI Chip Supply stream, produce a cautious trade idea or explicitly say no trade, and send it to my Trade Ideas Slack channel every time the stream fires.",
+              "prompt": "For every new event from my AI Chip Supply stream, produce a cautious trade idea or explicitly say no trade, and send it to my Trade Ideas webhook every time the stream fires.",
               "tools_triggered": "list_feeds, get_feed, update_feed, list_channels, route_feed_channel",
-              "expected_behavior": "Adds post-processing to AI Chip Supply that allows an explicit no-trade result without changing what the stream monitors, then routes the stream to the connected Trade Ideas Slack channel. Explains this applies to future alerts, sets up no polling, and asks for no Slack credentials."
+              "expected_behavior": "Adds post-processing to AI Chip Supply that allows an explicit no-trade result without changing what the stream monitors, then routes the stream to the connected Trade Ideas webhook. Explains this applies to future alerts, sets up no polling, and asks for no webhook URL or credentials."
             }
           ],
           "negative": [

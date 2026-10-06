@@ -54,7 +54,7 @@ Reset to exactly this before every review run. The review cases in
 | `AI Chip Supply` | Paused stream with exactly the five alerts below. |
 | `Review Disposable` | Active stream. |
 | `General Market Monitor` | Active stream. |
-| `Trade Ideas` | Slack channel, install `connected`, destination `active`, not routed to `AI Chip Supply`. |
+| `Trade Ideas` | Webhook destination pointing at an endpoint we own, destination `active`, not routed to `AI Chip Supply`. The reset command creates it if missing. |
 
 `AI Chip Supply` alerts, newest first:
 
