@@ -38,7 +38,7 @@ Use the reviewer account and fixture baseline in
 
 | Extra fixture | State | Used by |
 | --- | --- | --- |
-| `Market Desk` | A second webhook destination, destination `active`. | E7 |
+| `Market Desk` | A second webhook destination, destination `active`, on a host containing `market-desk` (agents see only a webhook's origin). | E7 |
 | `Fed Watch` | Active stream with a broad prompt (any news about the Federal Reserve) so it emits several times a day. | H1–H5 |
 
 Write down every stream ID from the reset; some prompts need one.
