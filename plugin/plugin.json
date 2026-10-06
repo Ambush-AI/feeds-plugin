@@ -50,7 +50,7 @@
               "description": "Create one focused stream from a plain-language request.",
               "prompt": "Create an Ambush stream named Advanced Packaging Watch that monitors material disruptions to advanced AI chip packaging capacity.",
               "tools_triggered": "create_feed",
-              "expected_behavior": "Calls create_feed exactly once with the name Advanced Packaging Watch and a monitoring prompt faithful to the request, then reports the new stream's ID and status."
+              "expected_behavior": "Calls create_feed exactly once with the name Advanced Packaging Watch and a monitoring prompt faithful to the request, then reports the new stream's ID and status. If a stream with that name already exists, it may point that out and ask before creating a duplicate; it must not create two streams in one turn."
             },
             {
               "description": "Pause a stream and refine what it monitors in one update.",

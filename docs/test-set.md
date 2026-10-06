@@ -62,7 +62,7 @@ description or one instructions rule) at a time and rerun.
 | ID | Prompt | Expected tools | Passes when |
 | --- | --- | --- | --- |
 | A1 **(review)** | List my Ambush streams and tell me which ones are paused. | `list_feeds` | Every stream with its status, matching the Streams page; AI regulation and AI Chip Supply paused, Fed Watch active. Changes nothing. |
-| A2 **(review)** | Create an Ambush stream named Advanced Packaging Watch that monitors material disruptions to advanced AI chip packaging capacity. | `create_feed` once | One stream with that name and a faithful prompt; reports its ID and status. |
+| A2 **(review)** | Create an Ambush stream named Advanced Packaging Watch that monitors material disruptions to advanced AI chip packaging capacity. | `create_feed` once | One stream with that name and a faithful prompt; reports its ID and status. If one already exists, pointing that out and asking before duplicating also passes; never two streams in one turn. |
 | A3 **(review)** | Show me the five latest alerts from my Fed Watch stream. | `list_feeds`, `list_emissions` (limit 5) | The five most recent alerts, newest first, matching the stream page; nothing invented. |
 | A4 | What channels do I have connected in Ambush? | `list_channels` | Lists the account's destinations with their status; no webhook paths or tokens. |
 

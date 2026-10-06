@@ -57,8 +57,10 @@ case is safe to run again.
 
 No destinations: don't connect Slack, webhooks, or the mobile app.
 
-Case 2 adds an `Advanced Packaging Watch` stream each time it runs. That's
-harmless; delete the extras from the app when they pile up.
+Case 2 adds an `Advanced Packaging Watch` stream each time it runs. Delete
+it from the app before recording the video and before submitting, so
+reviewers start without one. (If one exists, asking before duplicating also
+passes the case.)
 
 ## Tool annotation justifications
 
