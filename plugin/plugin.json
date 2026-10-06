@@ -77,8 +77,8 @@
               "prompt": "What are the biggest technology stories today?"
             },
             {
-              "description": "A coding request is not stream management, so Ambush is not used.",
-              "prompt": "Write a TypeScript RSS parser for my project."
+              "description": "A general question about news feeds is not stream management, so Ambush is not used.",
+              "prompt": "Explain what an RSS feed is in two sentences."
             },
             {
               "description": "An ambiguous cleanup request must not delete anything; the assistant asks which exact streams to permanently delete.",

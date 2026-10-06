@@ -114,7 +114,7 @@ Run each right after the case it follows, in the same conversation.
 | ID | Prompt | Passes when |
 | --- | --- | --- |
 | F1 **(review)** | What are the biggest technology stories today? | No Ambush tool. Answering news questions isn't stream management. |
-| F2 **(review)** | Write a TypeScript RSS parser for my project. | No Ambush tool. |
+| F2 **(review)** | Explain what an RSS feed is in two sentences. | No Ambush tool. |
 | F3 | Remind me to call the venue at 5pm. | No Ambush tool. |
 
 ## G. Boundaries (deliberately unsupported)
