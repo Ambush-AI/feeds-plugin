@@ -15,7 +15,7 @@ portal verification tokens, or recording access tokens.
       - [ ] `https://app.ambush.ai/terms`, approved by legal
 - [ ] Demo recording at a stable reviewer-accessible URL, added as
       `review.demo_recording_url`. Show OAuth sign-in, listing streams,
-      creating one, routing every event to a connected channel, a status
+      creating one, adding a note to every future alert, a status
       update, reviewing alerts, and the confirmation before a delete.
 - [ ] MCP server `instructions` deployed to production and visible in the
       portal after a rescan.
@@ -54,7 +54,6 @@ Reset to exactly this before every review run. The review cases in
 | `AI Chip Supply` | Paused stream with exactly the five alerts below. |
 | `Review Disposable` | Active stream. |
 | `General Market Monitor` | Active stream. |
-| `Trade Ideas` | Webhook destination, destination `active`, not routed to `AI Chip Supply`. The reset command creates it if missing. Its URL must be an endpoint we own whose **host** contains `trade-ideas` (for example `https://trade-ideas.<our domain>/…`), because agents only see a webhook's origin, never its label. It must answer 2xx: creating the destination sends one test event. |
 
 `AI Chip Supply` alerts, newest first:
 

@@ -22,7 +22,7 @@
         "capabilities": [
           "Create and edit news streams",
           "Review alerts and near misses",
-          "Route alerts to connected channels"
+          "Process every new alert"
         ],
         "websiteURL": "https://app.ambush.ai",
         "supportURL": "https://app.ambush.ai/support",
@@ -31,7 +31,7 @@
         "defaultPrompt": [
           "Watch for Fed officials signalling a change in the path of rate cuts.",
           "What did my Ambush streams catch today?",
-          "Send every alert from my AI regulation stream to my Slack channel."
+          "For every alert from my AI regulation stream, add a one-line summary."
         ],
         "brandColor": "#12BFAE",
         "composerIcon": "./assets/ambush-icon.svg",
@@ -65,10 +65,10 @@
               "expected_behavior": "Finds AI Chip Supply and lists its five seeded alerts newest first, from 'advanced packaging plant interruption' to 'substrate supplier capacity reduction', without inventing items."
             },
             {
-              "description": "Process every future event and deliver it to a connected channel, without polling or asking for credentials.",
-              "prompt": "For every new event from my AI Chip Supply stream, produce a cautious trade idea or explicitly say no trade, and send it to my Trade Ideas webhook every time the stream fires.",
-              "tools_triggered": "list_feeds, get_feed, update_feed, list_channels, route_feed_channel",
-              "expected_behavior": "Adds post-processing to AI Chip Supply that allows an explicit no-trade result without changing what the stream monitors, then routes the stream to the connected Trade Ideas webhook. Explains this applies to future alerts, sets up no polling, and asks for no webhook URL or credentials."
+              "description": "Transform every future event of a stream without changing what it monitors or setting up polling.",
+              "prompt": "For every new event from my AI Chip Supply stream, add a one-line note on why it matters for chip supply.",
+              "tools_triggered": "list_feeds, get_feed, update_feed",
+              "expected_behavior": "Finds AI Chip Supply and calls update_feed once with post-processing that adds a one-line note on why each alert matters for chip supply, leaving the monitoring prompt unchanged. Explains this applies to future alerts and sets up no polling or scheduled task."
             }
           ],
           "negative": [
