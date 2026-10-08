@@ -1,6 +1,6 @@
-# Ambush Streams plugin
+# Ambush plugin
 
-Source for the **Ambush Streams** plugin in the plugin directory that ChatGPT,
+Source for the **Ambush** plugin in the plugin directory that ChatGPT,
 Codex, and dots share. A dot can use any plugin installed and enabled for the
 account, so a directory listing is all dots need. The plugin is just our remote
 MCP server plus listing metadata:
@@ -41,7 +41,7 @@ waiting for the periodic fetch.
 `plugin.json` must sit at the ZIP root:
 
 ```sh
-mkdir -p dist && (cd plugin && zip -r -X ../dist/ambush-streams-0.3.0.zip . -x '*.DS_Store')
+mkdir -p dist && (cd plugin && zip -r -X ../dist/ambush-streams-0.3.3.zip . -x '*.DS_Store')
 ```
 
 ## Test before uploading

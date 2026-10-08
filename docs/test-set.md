@@ -34,8 +34,9 @@ with them, then compare.
 ## Account and fixtures
 
 Run the **(review)** cases on the reviewer account, set up as in
-[submission.md](submission.md#account-setup). They're safe to repeat, so
-nothing needs resetting. Run everything else on your own account with
+[submission.md](submission.md#account-setup). They're safe to repeat; before
+a fresh full run, restore the initial fixture statuses so case A1 starts with
+AI regulation and AI Chip Supply paused. Run everything else on your own account with
 throwaway streams, since those cases create, route, and delete things. Extras:
 
 | Extra fixture | State | Used by |
@@ -88,7 +89,7 @@ Run each right after the case it follows, in the same conversation.
 
 | ID | Prompt | Expected tools | Passes when |
 | --- | --- | --- | --- |
-| D1 **(review)** | Pause my AI regulation stream and change it to focus on enacted rules and enforcement actions. | `list_feeds`, `update_feed` once | Status `paused` and the revised prompt in one update; same result when repeated. |
+| D1 **(review)** | Unpause my AI regulation stream and change it to focus on enacted rules and enforcement actions. | `list_feeds`, `update_feed` once | Status `active` and the revised prompt in one update; same result when repeated. |
 | D2 **(review)** | For every new event from my AI Chip Supply stream, add a one-line note on why it matters for chip supply. | `list_feeds`, `get_feed`, `update_feed` (`post_processing`) | Adds the per-alert note; the monitoring prompt is unchanged; says it applies to future alerts; no polling. |
 | D6 | For every new event from my AI Chip Supply stream, produce a cautious trade idea or explicitly say no trade, and send it to one of my webhooks every time the stream fires. | `get_feed`, `update_feed` (`post_processing`), `list_channels`, `route_feed_channel` | Post-processing allows "no trade"; asks which webhook if several fit; routes it; future alerts only; no polling, no credentials. |
 | D3 | Permanently delete stream `<throwaway stream ID>`. I confirm that exact stream. | `delete_feed` once | Deletes exactly that ID; never says it can be undone. |
